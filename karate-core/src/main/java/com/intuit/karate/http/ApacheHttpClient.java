@@ -135,7 +135,7 @@ public class ApacheHttpClient implements HttpClient, HttpRequestInterceptor {
 
     private void configure(Config config) {
         clientBuilder = HttpClientBuilder.create();
-        clientBuilder.disableAutomaticRetries();
+        clientBuilder.setRetryHandler(new CustomHttpRequestRetryHandler(logger));
         if (!config.isFollowRedirects()) {
             clientBuilder.disableRedirectHandling();
         } else { // support redirect on POST by default
